@@ -1,0 +1,175 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_MOVIES 100
+
+// Structure definition representing a movie
+struct book {
+    char name[100];
+    char date[20];
+    int r1, r2, r3, balcony;
+};
+
+// Array to store movies
+struct book movies[MAX_MOVIES];
+int movie_count = 0;
+
+// Function declarations
+void In_house_Ent();
+void Delete_Movie();
+void Old_Transactions();
+void Delete_Transactions();
+void Book_Ticket();
+void View_Movie();
+void Add_Movie();
+
+// Function definitions
+void In_house_Ent() {
+    printf("In-House Entertainment not implemented yet.\n");
+}
+
+void Delete_Movie() {
+    char name[100];
+    printf("Enter the name of the movie to delete: ");
+    scanf("%s", name);
+
+    int i;
+    for (i = 0; i < movie_count; i++) {
+        if (strcmp(movies[i].name, name) == 0) {
+            for (int j = i; j < movie_count - 1; j++) {
+                movies[j] = movies[j + 1];
+            }
+            movie_count--;
+            printf("Movie deleted successfully.\n");
+            return;
+        }
+    }
+    printf("Movie not found.\n");
+}
+
+void Old_Transactions() {
+    printf("Old Transactions not implemented yet.\n");
+}
+
+void Delete_Transactions() {
+    printf("Delete Transactions not implemented yet.\n");
+}
+
+void Book_Ticket() {
+    char name[100];
+    printf("Enter the name of the movie to book tickets for: ");
+    scanf("%s", name);
+
+    int seats;
+    for (int i = 0; i < movie_count; i++) {
+        if (strcmp(movies[i].name, name) == 0) {
+            printf("Available prices:\n");
+            printf("Row 1: $%d\n", movies[i].r1);
+            printf("Row 2: $%d\n", movies[i].r2);
+            printf("Row 3: $%d\n", movies[i].r3);
+            printf("Balcony: $%d\n", movies[i].balcony);
+            
+            printf("Enter number of tickets for Row 1: ");
+            scanf("%d", &seats);
+            printf("Total cost for Row 1: $%d\n", seats * movies[i].r1);
+
+            printf("Enter number of tickets for Row 2: ");
+            scanf("%d", &seats);
+            printf("Total cost for Row 2: $%d\n", seats * movies[i].r2);
+
+            printf("Enter number of tickets for Row 3: ");
+            scanf("%d", &seats);
+            printf("Total cost for Row 3: $%d\n", seats * movies[i].r3);
+
+            printf("Enter number of tickets for Balcony: ");
+            scanf("%d", &seats);
+            printf("Total cost for Balcony: $%d\n", seats * movies[i].balcony);
+
+            return;
+        }
+    }
+    printf("Movie not found.\n");
+}
+
+void View_Movie() {
+    printf("Currently showing movies:\n");
+    for (int i = 0; i < movie_count; i++) {
+        printf("Movie Name: %s\n", movies[i].name);
+        printf("Release Date: %s\n", movies[i].date);
+        printf("Row 1 Price: $%d\n", movies[i].r1);
+        printf("Row 2 Price: $%d\n", movies[i].r2);
+        printf("Row 3 Price: $%d\n", movies[i].r3);
+        printf("Balcony Price: $%d\n", movies[i].balcony);
+        printf("----------\n");
+    }
+}
+
+void Add_Movie() {
+    if (movie_count >= MAX_MOVIES) {
+        printf("Cannot add more movies. Database full.\n");
+        return;
+    }
+
+    struct book new_movie;
+    printf("Enter movie name: ");
+    scanf("%s", new_movie.name);
+    printf("Enter release date: ");
+    scanf("%s", new_movie.date);
+    printf("Enter Row 1 price: ");
+    scanf("%d", &new_movie.r1);
+    printf("Enter Row 2 price: ");
+    scanf("%d", &new_movie.r2);
+    printf("Enter Row 3 price: ");
+    scanf("%d", &new_movie.r3);
+    printf("Enter Balcony price: ");
+    scanf("%d", &new_movie.balcony);
+
+    movies[movie_count++] = new_movie;
+    printf("Movie added successfully.\n");
+}
+
+int main() {
+    int choice;
+
+    while (1) {
+        printf("\nMovie Ticket Booking System\n");
+        printf("1. Add Movie\n");
+        printf("2. View Movies\n");
+        printf("3. Book Ticket\n");
+        printf("4. Delete Movie\n");
+        printf("5. View Old Transactions\n");
+        printf("6. Delete All Transactions\n");
+        printf("7. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                Add_Movie();
+                break;
+            case 2:
+                View_Movie();
+                break;
+            case 3:
+                Book_Ticket();
+                break;
+            case 4:
+                Delete_Movie();
+                break;
+            case 5:
+                Old_Transactions();
+                break;
+            case 6:
+                Delete_Transactions();
+                break;
+            case 7:
+                exit(0);
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+
+    return 0;
+}
